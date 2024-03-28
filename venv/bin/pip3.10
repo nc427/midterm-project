@@ -1,4 +1,4 @@
-#!/home/nickole/is219projects/midterm-project/venv/bin/python3
+#!/home/nickole/is219projects/midterm-project/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

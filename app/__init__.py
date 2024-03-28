@@ -3,7 +3,7 @@ import pkgutil
 import importlib
 import sys
 from app.commands import CommandHandler, Command
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # noqa
 import logging
 import logging.config
 
