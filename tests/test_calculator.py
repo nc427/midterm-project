@@ -1,27 +1,27 @@
 from decimal import Decimal
 import pytest
-from app.calculator import Calculator
+from app.calculator.calculator import Calculator
 
 @pytest.fixture
 def calculator():
     return Calculator()
 
-def test_add(calculator):
+def test_add(calculator: Any):
     assert calculator.add(2, 3) == Decimal('5')
 
-def test_subtract(calculator):
+def test_subtract(calculator: Any):
     assert calculator.subtract(5, 2) == Decimal('3')
 
-def test_multiply(calculator):
+def test_multiply(calculator: Any):
     assert calculator.multiply(2, 3) == Decimal('6')
 
-def test_divide(calculator):
+def test_divide(calculator: Any):
     assert calculator.divide(6, 3) == Decimal('2')
 
-def test_divide_by_zero(calculator):
+def test_divide_by_zero(calculator: Any):
     with pytest.raises(ZeroDivisionError):
         calculator.divide(6, 0)
 
-def test_unknown_operation(calculator):
+def test_unknown_operation(calculator: Any):
     with pytest.raises(AttributeError):
         calculator.power(2, 3)  # power operation is not defined in Calculator

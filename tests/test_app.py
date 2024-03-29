@@ -1,5 +1,4 @@
 import pytest
-
 from app import App
 
 def test_app_get_environment_variable():
