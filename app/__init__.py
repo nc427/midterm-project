@@ -6,6 +6,7 @@ from app.commands import CommandHandler, Command
 from dotenv import load_dotenv  # noqa
 import logging
 import logging.config
+from app.calculator import Calculator  # Import the Calculator class
 
 class App:
     def __init__(self):
@@ -15,6 +16,7 @@ class App:
         self.settings = self.load_environment_variables()
         self.settings.setdefault('ENVIRONMENT', 'PRODUCTION')
         self.command_handler = CommandHandler()
+        self.calculator = Calculator()  # Instantiate the Calculator class
 
     def configure_logging(self):
         logging_conf_path = 'logging.conf'
@@ -63,16 +65,30 @@ class App:
                 if cmd_input.lower() == 'exit':
                     logging.info("Application exit.")
                     sys.exit(0)  # Use sys.exit(0) for a clean exit, indicating success.
-                try:
-                    self.command_handler.execute_command(cmd_input)
-                except KeyError:  # Assuming execute_command raises KeyError for unknown commands
-                    logging.error(f"Unknown command: {cmd_input}")
-                    sys.exit(1)  # Use a non-zero exit code to indicate failure or incorrect command.
+                elif cmd_input.startswith("calc"):
+                    # Splitting the input to extract arguments for calculation
+                    _, operation_name, a, b = cmd_input.split()
+                    self.calculate_and_print(a, b, operation_name)
+                else:
+                    try:
+                        self.command_handler.execute_command(cmd_input)
+                    except KeyError:  # Assuming execute_command raises KeyError for unknown commands
+                        logging.error(f"Unknown command: {cmd_input}")
+                        sys.exit(1)  # Use a non-zero exit code to indicate failure or incorrect command.
         except KeyboardInterrupt:
             logging.info("Application interrupted and exiting gracefully.")
             sys.exit(0)  # Assuming a KeyboardInterrupt should also result in a clean exit.
         finally:
             logging.info("Application shutdown.")
+
+    def calculate_and_print(self, a, b, operation_name):
+        try:
+            result = getattr(self.calculator, operation_name)(Decimal(a), Decimal(b))
+            print(f"The result of {a} {operation_name} {b} is equal to {result}")
+        except AttributeError:
+            print(f"Unknown operation: {operation_name}")
+        except ValueError as e:
+            print(f"Error: {e}")
 
 
 if __name__ == "__main__":
