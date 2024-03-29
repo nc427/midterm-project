@@ -1,3 +1,4 @@
+from decimal import Decimal
 import os
 import pkgutil
 import importlib
@@ -6,7 +7,7 @@ from app.commands import CommandHandler, Command
 from dotenv import load_dotenv  # noqa
 import logging
 import logging.config
-from app.calculator import Calculator  # Import the Calculator class
+from app.calculator.calculation import Calculation  # Import the Calculator class
 
 class App:
     def __init__(self):
@@ -16,7 +17,7 @@ class App:
         self.settings = self.load_environment_variables()
         self.settings.setdefault('ENVIRONMENT', 'PRODUCTION')
         self.command_handler = CommandHandler()
-        self.calculator = Calculator()  # Instantiate the Calculator class
+        self.calculator = Calculation()  # Instantiate the Calculator class
 
     def configure_logging(self):
         logging_conf_path = 'logging.conf'

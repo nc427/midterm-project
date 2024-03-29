@@ -1,6 +1,6 @@
 import pytest
 from app import App
-from app.calculator.calculator import Calculator
+
 
 
 def test_app_greet_command(capfd, monkeypatch):
