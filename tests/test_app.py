@@ -1,5 +1,5 @@
 import pytest
-from app.calculator.calculation import Calculation
+from app.calculator import Calculator
 from app import App
 
 def test_app_get_environment_variable():
