@@ -1,10 +1,11 @@
 from decimal import Decimal
+from typing import Any
 import pytest
-from app.calculator import Calculator
+from app.calculator.calculation import Calculation
 
 @pytest.fixture
 def calculator():
-    return Calculator()
+    return Calculation()
 
 def test_add(calculator: Any):
     assert calculator.add(2, 3) == Decimal('5')
