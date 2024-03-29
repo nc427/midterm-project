@@ -1,6 +1,6 @@
 from decimal import Decimal
 import pytest
-from app.calculator.calculator import Calculator
+from app.calculator import Calculator
 
 @pytest.fixture
 def calculator():
